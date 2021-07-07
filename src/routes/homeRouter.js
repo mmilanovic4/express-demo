@@ -7,7 +7,7 @@ homeRouter?.get("/", (_, res) => {
 });
 
 homeRouter?.use((_, res) => {
-  res?.status(404)?.send("404!");
+  res?.status(404)?.render("404", { title: "404" });
 });
 
 export { homeRouter };
