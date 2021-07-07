@@ -14,6 +14,10 @@ app?.use(express?.json());
 app?.use(express?.urlencoded({ extended: true }));
 app?.use("/static", express?.static(path?.resolve(__dirname, "static")));
 
+// Setup views
+app?.set("view engine", "pug");
+app?.set("views", path?.resolve(__dirname, "views"));
+
 // Middleware
 app?.use(infoMiddleware);
 

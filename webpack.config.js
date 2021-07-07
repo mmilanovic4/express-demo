@@ -32,6 +32,9 @@ module.exports = (env) => {
       new CopyPlugin({
         patterns: [{ from: "static", to: "static" }],
       }),
+      new CopyPlugin({
+        patterns: [{ from: "views", to: "views" }],
+      }),
     ],
   };
 };

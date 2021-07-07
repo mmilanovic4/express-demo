@@ -3,7 +3,7 @@ import { Router } from "express";
 const homeRouter = Router();
 
 homeRouter?.get("/", (_, res) => {
-  res?.send("Home.");
+  res?.render("index", { title: "Home" });
 });
 
 homeRouter?.use((_, res) => {
