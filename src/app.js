@@ -1,9 +1,11 @@
 import express from "express";
 import path from "path";
+import process from "process";
 import { config } from "./config";
+import { db } from "./db";
 import { infoMiddleware } from "./middleware/infoMiddleware";
-import { apiRouter } from "./routes/apiRouter";
-import { homeRouter } from "./routes/homeRouter";
+import { personAPIRouter } from "./routes/personAPI";
+import { homeRouter } from "./routes/home";
 
 const app = express();
 const port = config?.port;
@@ -22,9 +24,27 @@ app?.set("views", path?.resolve(__dirname, "views"));
 app?.use(infoMiddleware);
 
 // Routers
-app?.use("/api", apiRouter);
+app?.use("/api/person", personAPIRouter);
 app?.use("/", homeRouter);
 
-app?.listen(port, () => {
+const server = app?.listen(port, () => {
   console?.log(`App listening on port ${port}...`);
 });
+
+// Clean all connections on shutdown
+const shutDown = () => {
+  console?.log("\n");
+  console?.log("Shutting down...");
+  try {
+    db?.close();
+    server?.close();
+  } catch (err) {
+    console?.log(err);
+  } finally {
+    console?.log("Exiting process.");
+    process?.exit(0);
+  }
+};
+
+process?.on("SIGINT", shutDown);
+process?.on("SIGTERM", shutDown);
