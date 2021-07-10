@@ -3,6 +3,7 @@ import path from "path";
 import process from "process";
 import { config } from "./config";
 import { db } from "./db";
+import { authMiddleware } from "./middleware/authMiddleware";
 import { infoMiddleware } from "./middleware/infoMiddleware";
 import { personAPIRouter } from "./routes/personAPI";
 import { homeRouter } from "./routes/home";
@@ -24,7 +25,7 @@ app?.set("views", path?.resolve(__dirname, "views"));
 app?.use(infoMiddleware);
 
 // Routers
-app?.use("/api/person", personAPIRouter);
+app?.use("/api/person", authMiddleware, personAPIRouter);
 app?.use("/", homeRouter);
 
 const server = app?.listen(port, () => {
