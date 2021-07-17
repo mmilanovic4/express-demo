@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { config } from "../config";
 
 // Generate token for testing purpose
+// Normally this will be generated via /api/login route
 jwt?.sign(
   { username: "admin" },
   config?.tokenSecret,
@@ -9,8 +10,8 @@ jwt?.sign(
     expiresIn: 60 * 60, // 1 hour
   },
   (err, token) => {
-    console?.log(err);
-    console?.log(token);
+    if (err) console?.log(err);
+    else console?.log(token);
   }
 );
 
@@ -25,8 +26,8 @@ const authMiddleware = (req, res, next) => {
   }
 
   jwt?.verify(token, config?.tokenSecret, (err, payload) => {
-    console?.log(err);
-    console?.log(payload);
+    if (err) console?.log(err);
+    else console?.log(payload);
     if (err) {
       res?.status(403)?.render("index", { title: "403" });
     } else {
