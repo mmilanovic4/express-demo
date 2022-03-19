@@ -20,7 +20,7 @@
     "url": "https://github.com/mmilanovic4/express-demo.git"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.7",
+    "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^10.2.4",
